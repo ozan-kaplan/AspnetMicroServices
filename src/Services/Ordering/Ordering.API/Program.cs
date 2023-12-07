@@ -1,7 +1,7 @@
 using Ordering.API.Extensions;
 using Ordering.Application;
 using Ordering.Infrastructure;
-using Ordering.Infrastructure.Persistence; 
+using Ordering.Infrastructure.Persistence;
 using MassTransit;
 using EventBus.Messages.Common;
 using Ordering.API.EventBusConsumer;
@@ -19,6 +19,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 
+
+builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddScoped<BasketCheckoutConsumer>();
 
 
 
@@ -51,7 +54,7 @@ app.MigrateDatabase<OrderContext>((context, services) =>
         .SeedAsync(context, logger)
         .Wait();
 });
- 
+
 
 
 // Configure the HTTP request pipeline.
